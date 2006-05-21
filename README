@@ -1,0 +1,4 @@
+db:to_fixtures
+==============
+
+a rake task that will extract the current db database contents into fixtures
