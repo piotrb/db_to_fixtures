@@ -1,4 +1,8 @@
-db:to_fixtures
-==============
+db:fixtures:dump
+================
 
 a rake task that will extract the current db database contents into fixtures
+
+Written By:  Piotr Banasik <piotr.banasik@gmail.com>
+Released: 2006-08-21
+License: LGPL unless otherwise stated
