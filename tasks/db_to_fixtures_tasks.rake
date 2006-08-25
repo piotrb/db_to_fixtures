@@ -1,45 +1,12 @@
 namespace :db do
 	namespace :fixtures do
 
-# 		desc "an improved version of db:fixtures:load, supports multiple databases"
-# 		task :load2 => :environment do
-# 			require 'active_record/fixtures'
-#
-# 			class Fixture
-# 				def key_list
-# 					kls = @class_name.constantize
-# 				  columns = @fixture.keys.collect{ |column_name| kls.connection.quote_column_name(column_name) }
-# 				  columns.join(", ")
-# 				end
-# 			end
-#
-# 			(ENV['FIXTURES'] ? ENV['FIXTURES'].split(/,/) : Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.{yml,csv}'))).each do |fixture_file|
-#
-# 				puts File.basename(fixture_file)
-# 				class_name = File.basename(fixture_file, '.*').pluralize.classify
-# 				kls = nil
-# 				begin
-# 					kls = class_name.constantize
-# 				rescue NameError => e
-# 					
-# 				end
-#
-# 				connection = kls ? kls.connection : ActiveRecord::Base.connection
-#
-# 				fixture_name = File.basename(fixture_file, '.*')
-#
-# 				table_name = kls ? kls.table_name : fixture_name
-#
-# 				f = Fixtures.new(connection, table_name, class_name, File.join('test/fixtures', fixture_name))
-# 				f.delete_existing_fixtures
-# 				f.insert_fixtures
-#
-# 				if connection.respond_to?(:reset_pk_sequence!)
-# 					connection.reset_pk_sequence!(table_name)
-# 				end
-#
-# 			end
-# 		end
+		task :load_fixtures_ext do
+			require 'active_record/fixtures'
+			require 'fixtures_ext'
+		end
+
+		Rake::Task["db:fixtures:load"].enhance([:load_fixtures_ext])
 
 		def model_to_fixtures(klass, order = true, table = nil)
 			table ||= klass.table_name
