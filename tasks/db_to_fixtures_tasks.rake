@@ -21,7 +21,18 @@ namespace :db do
 				n = 0 # fallback counter incase o.id is nil
 				klass.find(:all, :order => ord).each { |o|
 					n += 1
-					fh.puts "%s_%d:" % [klass.to_s, o.id.nil? ? n : o.id]
+					if klass.respond_to? :fixture_name_column
+					  col = klass.fixture_name_column
+					  if col.kind_of? Proc
+					    key = col[o]
+					  else
+					    key = o[col]
+					  end
+					else
+					  key = "%s_%d" % [klass.to_s, o.id.nil? ? n : o.id]
+				  end
+					key.downcase!
+					fh.puts "#{key}:"
 					# remove the --- line from the yaml and indent the yaml 2 characters
 					o.attributes.each { |k,v|
 						o.attributes[k] = v.to_s if v.kind_of? Bignum
