@@ -31,7 +31,7 @@ namespace :db do
 					else
 					  key = "%s_%d" % [klass.to_s, o.id.nil? ? n : o.id]
 				  end
-					key.downcase!
+					key = key.downcase
 					fh.puts "#{key}:"
 					# remove the --- line from the yaml and indent the yaml 2 characters
 					o.attributes.each { |k,v|
