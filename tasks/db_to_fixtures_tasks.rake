@@ -15,7 +15,7 @@ namespace :db do
 			puts "%11s	%s" % ["update", fn]
 			File.open(fn, "w") { |fh|
 				fh.puts "# automatically generated fixtures from database data"
-				fh.puts "# generated: #{Time.now.to_s}"
+#				fh.puts "# generated: #{Time.now.to_s}"
 				fh.puts
 				ord = order ? "#{id_field} asc" : nil
 				n = 0 # fallback counter incase o.id is nil
